@@ -49,13 +49,16 @@ local config = {
     "-Declipse.product=org.eclipse.jdt.ls.core.product",
     "-Dlog.protocol=true",
     "-Dlog.level=ALL",
+
+    -- Ensure the path is correct:
+    "-javaagent:" .. home .. "/.local/share/lvim/mason/packages/jdtls/lombok.jar",
+
     "-Xms1g",
     "--add-modules=ALL-SYSTEM",
     "--add-opens",
     "java.base/java.util=ALL-UNNAMED",
     "--add-opens",
     "java.base/java.lang=ALL-UNNAMED",
-    "-javaagent:" .. home .. "/.local/share/nvim/mason/packages/jdtls/lombok.jar",
 
     -- Ensure the following is correct for you system:
     "-jar",
