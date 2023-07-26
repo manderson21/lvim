@@ -60,14 +60,18 @@ local config = {
     "--add-opens",
     "java.base/java.lang=ALL-UNNAMED",
 
-    -- Ensure the following is correct for you system:
+    -- Ensure the following is correct for your system:
     "-jar",
     vim.fn.glob(home .. "/.local/share/lvim/mason/packages/jdtls/plugins/org.eclipse.equinox.launcher_1.6.500.v20230622-2056.jar"),
     -- ^^^^^^^^^^^^^^^^^^^^^
-    -- Must point to the eclipse.jdt.ls installation in Mason
+    -- Must point to the eclipse.jdt.ls
 
+    -- Ensure the following is correct for your system:
     "-configuration",
-    home .. "/.local/share/nvim/mason/packages/jdtls/config_" .. os_config,
+    home .. "~/.local/share/lvim/mason/packages/jdtls/config_" .. os_config,
+    -- ^^^^^^^^^^^^^^^^^^^^^                          ^^^^^^^^^^^^^^^^^^^^^
+    -- Must point to the eclipse.jdt.ls               This will become 'config_mac' or 'config_linux', depending on your OS
+
     "-data",
     workspace_dir,
   },
