@@ -15,4 +15,7 @@ lvim.plugins = {
   {
     "psliwka/vim-smoothie"
   },
+
+  -- Java LSP Plugin
+  "mfussenegger/nvim-jdtls",
 }
