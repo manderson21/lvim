@@ -33,9 +33,17 @@ vim.list_extend(
 )
 
 lvim.builtin.dap.active = true
+
+-- See `:help vim.lsp.start_client` for an overview of the supported `config` options.
 local config = {
+  -- The command that starts the language server
+  -- See: https://github.com/eclipse/eclipse.jdt.ls#running-from-the-command-line
   cmd = {
-    "java",
+
+    -- Pick one of the following 2 and comment out the other:
+    -- "java",                                                                   -- Choose this option if the `java` command points to the correct version
+    "/Library/Java/JavaVirtualMachines/jdk-17.0.3.1.jdk/Contents/Home/bin/java", -- Otherwise '/path/to/java17_or_newer/bin/java'
+
     "-Declipse.application=org.eclipse.jdt.ls.core.id1",
     "-Dosgi.bundles.defaultStartLevel=4",
     "-Declipse.product=org.eclipse.jdt.ls.core.product",
@@ -48,8 +56,13 @@ local config = {
     "--add-opens",
     "java.base/java.lang=ALL-UNNAMED",
     "-javaagent:" .. home .. "/.local/share/nvim/mason/packages/jdtls/lombok.jar",
+
+    -- Ensure the following is correct for you system:
     "-jar",
-    vim.fn.glob(home .. "/.local/share/nvim/mason/packages/jdtls/plugins/org.eclipse.equinox.launcher_*.jar"),
+    vim.fn.glob(home .. "/.local/share/lvim/mason/packages/jdtls/plugins/org.eclipse.equinox.launcher_1.6.500.v20230622-2056.jar"),
+    -- ^^^^^^^^^^^^^^^^^^^^^
+    -- Must point to the eclipse.jdt.ls installation in Mason
+
     "-configuration",
     home .. "/.local/share/nvim/mason/packages/jdtls/config_" .. os_config,
     "-data",
