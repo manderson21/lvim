@@ -68,7 +68,7 @@ local config = {
 
     -- Ensure the following is correct for your system:
     "-configuration",
-    home .. "~/.local/share/lvim/mason/packages/jdtls/config_" .. os_config,
+    home .. "/.local/share/lvim/mason/packages/jdtls/config_" .. os_config,
     -- ^^^^^^^^^^^^^^^^^^^^^                          ^^^^^^^^^^^^^^^^^^^^^
     -- Must point to the eclipse.jdt.ls               This will become 'config_mac' or 'config_linux', depending on your OS
 
