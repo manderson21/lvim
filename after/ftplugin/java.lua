@@ -3,11 +3,15 @@ if not status then
   return
 end
 
+
 -- Setup Workspace
 local home = os.getenv "HOME"
 local workspace_path = home .. "/.local/share/lunarvim/jdtls-workspace/"
 local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t")
 local workspace_dir = workspace_path .. project_name
+
+-- eclipse.jdt.ls directory
+local eclipse = home .. "/.local/share/lvim/mason/packages/jdtls"
 
 -- Determine OS
 local os_config = "linux"
@@ -41,8 +45,8 @@ local config = {
   cmd = {
 
     -- Pick one of the following 2 and comment out the other:
-    -- "java",                                                                   -- Choose this option if the `java` command points to the correct version
-    "/Library/Java/JavaVirtualMachines/jdk-17.0.3.1.jdk/Contents/Home/bin/java", -- Otherwise '/path/to/java17_or_newer/bin/java'
+    "java",                                                                   -- Choose this option if the `java` command points to the correct version
+    -- "/Library/Java/JavaVirtualMachines/jdk-17.0.3.1.jdk/Contents/Home/bin/", -- Otherwise '/path/to/java17_or_newer/bin/java'
 
     "-Declipse.application=org.eclipse.jdt.ls.core.id1",
     "-Dosgi.bundles.defaultStartLevel=4",
@@ -51,7 +55,7 @@ local config = {
     "-Dlog.level=ALL",
 
     -- Ensure the path is correct:
-    "-javaagent:" .. home .. "/.local/share/lvim/mason/packages/jdtls/lombok.jar",
+    "-javaagent:" .. eclipse .. "/lombok.jar",
 
     "-Xms1g",
     "--add-modules=ALL-SYSTEM",
@@ -61,19 +65,16 @@ local config = {
     "java.base/java.lang=ALL-UNNAMED",
 
     -- Ensure the following is correct for your system:
-    "-jar",
-    vim.fn.glob(home .. "/.local/share/lvim/mason/packages/jdtls/plugins/org.eclipse.equinox.launcher_1.6.500.v20230622-2056.jar"),
-    -- ^^^^^^^^^^^^^^^^^^^^^
-    -- Must point to the eclipse.jdt.ls
+    "-jar", vim.fn.glob(eclipse .. "/plugins/org.eclipse.equinox.launcher_1.6.500.v20230622-2056.jar"),
+    --                  ^^^^^^^^^^^^^^^^^^^^^
+    --                  Must point to the eclipse.jdt.ls
 
     -- Ensure the following is correct for your system:
-    "-configuration",
-    home .. "/.local/share/lvim/mason/packages/jdtls/config_" .. os_config,
-    -- ^^^^^^^^^^^^^^^^^^^^^                          ^^^^^^^^^^^^^^^^^^^^^
-    -- Must point to the eclipse.jdt.ls               This will become 'config_mac' or 'config_linux', depending on your OS
+    "-configuration", eclipse .."/config_" .. os_config,
+    --                ^^^^^^^^^^^^^^^^^^^^^                            ^^^^^^^^^^^^^^^^^^^^^
+    --                Must point to the eclipse.jdt.ls                 This will become 'config_mac' or 'config_linux', depending on your OS
 
-    "-data",
-    workspace_dir,
+    "-data", workspace_dir,
   },
   root_dir = require("jdtls.setup").find_root { ".git", "mvnw", "gradlew", "pom.xml", "build.gradle" },
   capabilities = capabilities,
