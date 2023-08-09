@@ -1,7 +1,8 @@
 vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "lemminx" })
 
-local cacheLocation = "~/.cache/lemminx/"
-local lemminxLocation = "~/repos/community/lemminx/"
+local home = os.getenv "HOME"
+local cacheLocation = home .. "/.cache/lemminx/"
+local lemminxLocation = home .. "/repos/community/lemminx/"
 
 local lsp_manager = require("lvim.lsp.manager")
 lsp_manager.setup("lemminx", {
@@ -12,8 +13,8 @@ lsp_manager.setup("lemminx", {
     -- Comment out for Remote Debugging of the Lemminx LSP Server:
     -- "-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=*:5005",
 
-    -- Path to lemminx jar.
-    "-cp", vim.fn.glob(lemminxLocation .. "lemminx-maven/lemminx-maven/target/vscode-lemminx-maven-jars/*"),
+    -- ClassPath
+    "-cp", lemminxLocation .. "lemminx-maven/lemminx-maven/target/vscode-lemminx-maven-jars/*",
 
     -- Main Class
     "org.eclipse.lemminx.XMLServerLauncher"
