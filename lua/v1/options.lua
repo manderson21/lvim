@@ -20,4 +20,5 @@ lvim.builtin.nvimtree.setup.renderer.icons.show.git = false
 
 lvim.builtin.breadcrumbs.active = true
 
+lvim.builtin.dap.active = true
 

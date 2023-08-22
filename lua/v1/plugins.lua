@@ -18,4 +18,12 @@ lvim.plugins = {
 
   -- Java LSP Plugin
   "mfussenegger/nvim-jdtls",
+
+  -- Scala LSP Plugin
+  {
+    "scalameta/nvim-metals",
+    config = function ()
+      require("v1.metals").config()
+    end,
+  },
 }
